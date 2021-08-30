@@ -1,0 +1,76 @@
+﻿@page
+@model Practica2.NominasModel
+@{
+    ViewData["Title"] = "Nominas";
+}
+
+<h2>Nominas</h2>
+
+
+<table class="table table-bordered">
+    <tr>
+
+        <th>
+            Nombre
+        </th>
+        <th>
+            Apellido
+        </th>
+        <th>
+            Cargo
+        </th>
+        <th>
+            Salario
+        </th>
+        <th>
+            Descuento ARS
+        </th>
+        <th>
+            Descuento AFP
+        </th>
+        <th>
+            IRS
+        </th>
+        <th>
+            Total Descuentos
+        </th>
+        <th>
+            Salario Neto
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model.ListaNomina)
+    {
+<tr>
+
+    <td>
+        @item.Nombre
+    </td>
+    <td>
+        @item.Apellido
+    </td>
+    <td>
+        @item.Cargo
+    </td>
+    <td>
+        RD$ @item.Salario_Mensual
+    </td>
+    <td>
+        RD$ @item.Calcular_ARS(item.Salario_Mensual)
+    </td>
+    <td>
+        RD$ @item.Calcular_AFP(item.Salario_Mensual)
+    </td>
+    <td>
+        RD$ @item.Calcular_IRS(item.Salario_Mensual)
+    </td>
+    <td>
+        RD$ @item.TotalDescuentos(item.Calcular_ARS(item.Salario_Mensual), item.Calcular_AFP(item.Salario_Mensual), item.Calcular_IRS(item.Salario_Mensual))
+    </td>
+    <td>
+        RD$ @item.CalcularSalarioNeto(item.Salario_Mensual,item.TotalDescuentos(item.Calcular_ARS(item.Salario_Mensual),item.Calcular_AFP(item.Salario_Mensual),item.Calcular_IRS(item.Salario_Mensual)))
+</tr>
+    }
+
+</table>
